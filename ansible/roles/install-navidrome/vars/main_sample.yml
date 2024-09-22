@@ -1,0 +1,8 @@
+---
+navidrome_path: '/opt/navidrome'
+navidrome_data_path: '/path/to/my/navidrome/data/folder'
+navidrome_music_root: '/path/to/my/music/folder'
+navidrome_port: '4533'
+navidrome_user: navidrome
+navidrome_group: navidrome
+navidrome_rsync_target: 'backup_user@rsync_server::backup_target'

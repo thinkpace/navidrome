@@ -1,0 +1,4 @@
+- hosts: navidrome
+  become: true
+  roles:
+    - install-navidrome

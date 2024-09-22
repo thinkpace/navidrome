@@ -1,0 +1,10 @@
+services:
+  navidrome:
+    image: deluan/navidrome:latest
+    user: {{ navidrome_user_id }}:{{ navidrome_group_id }}
+    ports:
+      - '{{ navidrome_port }}:4533'
+    restart: unless-stopped
+    volumes:
+      - {{ navidrome_data_path }}:/data
+      - {{ navidrome_music_root }}:/music:ro

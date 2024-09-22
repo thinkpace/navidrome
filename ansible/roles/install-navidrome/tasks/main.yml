@@ -1,0 +1,53 @@
+---
+- ansible.builtin.getent:
+    database: passwd
+    key: navidrome
+- name: Create installation directory
+  file:
+    path: '{{ navidrome_path }}'
+    state: directory
+    owner: '{{ navidrome_user }}'
+    group: '{{ navidrome_group }}'
+    mode: 0775
+- name: Create data directory
+  file:
+    path: '{{ navidrome_data_path }}'
+    state: directory
+    owner: '{{ navidrome_user }}'
+    group: '{{ navidrome_group }}'
+    mode: 0770
+- name: Get navidrome user info
+  ansible.builtin.getent:
+    database: passwd
+    key: '{{ navidrome_user }}'
+- name: Copy docker-compose.yml
+  ansible.builtin.template:
+    src: docker-compose.yml.j2
+    dest: '{{ navidrome_path }}/docker-compose.yml'
+    owner: root
+    group: root
+    mode: 0664
+  vars:
+    navidrome_user_id: '{{ ansible_facts.getent_passwd[navidrome_user][1] }}'
+    navidrome_group_id: '{{ ansible_facts.getent_passwd[navidrome_group][1] }}'
+- name: Enable daily upgrade of base image
+  ansible.builtin.cron:
+    name: 'Upgrade {{ navidrome_path }}'
+    user: root
+    hour: 4
+    minute: 0
+    job: 'docker compose -f {{ navidrome_path }}/docker-compose.yml down && docker compose -f {{ navidrome_path }}/docker-compose.yml pull && docker compose -f {{ navidrome_path }}/docker-compose.yml up -d'
+- name: Copy backup_navidrome.sh
+  ansible.builtin.template:
+    src: backup_navidrome.sh.j2
+    dest: '{{ navidrome_path }}/backup_navidrome.sh'
+    owner: root
+    group: root
+    mode: 0775
+- name: Enable daily backup
+  ansible.builtin.cron:
+    name: 'Backup {{ navidrome_path }}'
+    user: root
+    hour: 1
+    minute: 0
+    job: '{{ navidrome_path }}/backup_navidrome.sh'
