@@ -1,6 +1,7 @@
 services:
   navidrome:
     image: deluan/navidrome:latest
+    container_name: navidrome
     user: {{ navidrome_user_id }}:{{ navidrome_group_id }}
     ports:
       - '{{ navidrome_port }}:4533'
