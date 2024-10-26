@@ -50,4 +50,4 @@ Ansible role is creating a cronjob which updates base images every night.
 
 # Backup
 
-The role creates a cron job which executes a [backup script](/ansible/roles/install-navidrome/templates/backup_navidrome.sh.j2) on a daily basis. To copy backup data to a backup server, rsync is used. To enable backup, please ensure there is a `rsync.pwd` in your installation path which contains rsync password.
+The role creates a cron job which executes a [backup script](/ansible/roles/install-prometheus/templates/backup_navidrome.sh.j2) on a daily basis. To copy backup data to a backup server, rsync is used. To enable backup, please ensure there is a `rsync.pwd` in your installation path which contains rsync password.
