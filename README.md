@@ -9,7 +9,7 @@ The following chapters cover setup, upgrade and backup. I publish it because it 
 There are some drawbacks in this scenario which I would like to point out:
 
 * In this scenario, Navidrome is running on HTTP without any transport layer encryption. Run this only in secure environments.
-* docker-compose.yml is referencing to the latest images available in Docker Registry. In a commercial environment, this is often seen as an anti pattern because it could lead to unintended updates and broken systems. However, in my specific scenario, I want to refer to the latest available image. If something fails unintended, I need to fix it.
+* docker-compose.yml is referencing to the latest images available in Docker Registry. In a enterprise environment, this is often seen as an anti pattern because it could lead to unintended updates and broken systems. However, in my specific scenario, I want to refer to the latest available image. If something fails unintended, I need to fix it.
 
 # Requirements
 
@@ -50,4 +50,4 @@ Ansible role is creating a cronjob which updates base images every night.
 
 # Backup
 
-The role creates a cron job which executes a [backup script](/ansible/roles/install-prometheus/templates/backup_navidrome.sh.j2) on a daily basis. To copy backup data to a backup server, rsync is used. To enable backup, please ensure there is a `rsync.pwd` in your installation path which contains rsync password.
+The role creates a cron job which executes a [backup script](/ansible/roles/install-navidrome/templates/backup_navidrome.sh.j2) on a daily basis. To copy backup data to a backup server, rsync is used. To enable backup, please ensure there is a `rsync.pwd` in your installation path which contains rsync password.

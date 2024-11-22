@@ -1,7 +1,4 @@
 ---
-- ansible.builtin.getent:
-    database: passwd
-    key: navidrome
 - name: Create installation directory
   file:
     path: '{{ navidrome_path }}'
@@ -35,7 +32,7 @@
     name: 'Upgrade {{ navidrome_path }}'
     user: root
     hour: 4
-    minute: 0
+    minute: 30
     job: 'docker compose -f {{ navidrome_path }}/docker-compose.yml down && docker compose -f {{ navidrome_path }}/docker-compose.yml pull && docker compose -f {{ navidrome_path }}/docker-compose.yml up -d'
 - name: Copy backup_navidrome.sh
   ansible.builtin.template:
